@@ -146,8 +146,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train a decision tree.")
     parser.add_argument("--dataset", choices=["breast", "iris", "wifi"], default="wifi")
     parser.add_argument("--max_depth", type=int, default=1)
-    parser.add_argument("--show_details", type=bool, default=True)
-    parser.add_argument("--use_sklearn", type=bool, default=False)
+    parser.add_argument("--hide_details", dest="hide_details", action="store_true")
+    parser.set_defaults(hide_details=False)
+    parser.add_argument("--use_sklearn", dest="use_sklearn", action="store_true")
+    parser.set_defaults(use_sklearn=False)
     args = parser.parse_args()
 
     # 1. Load dataset.
@@ -197,4 +199,8 @@ if __name__ == "__main__":
         )
         print("Done. To convert to PNG, run: dot -Tpng tree.dot -o tree.png")
     else:
-        clf.debug(list(dataset.feature_names), list(dataset.target_names))
+        clf.debug(
+            list(dataset.feature_names),
+            list(dataset.target_names),
+            not args.hide_details,
+        )
