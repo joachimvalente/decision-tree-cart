@@ -179,6 +179,8 @@ if __name__ == "__main__":
         input = [0, 0, 5.0, 1.5]
     elif args.dataset == "wifi":
         input = [-70, 0, 0, 0, -40, 0, 0]
+    elif args.dataset == "breast":
+        input = [np.random.rand() for _ in range(30)]
     pred = clf.predict([input])[0]
     print("Input: {}".format(input))
     print("Prediction: " + dataset.target_names[pred])
